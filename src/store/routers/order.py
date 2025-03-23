@@ -1,7 +1,7 @@
 """Order router."""
 
 import requests
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from redis_om.model import NotFoundError
@@ -9,6 +9,7 @@ from redis_om.model import NotFoundError
 from src.store.constants import OrderStatus
 from src.store.models import Order
 from src.store.schema import ProductOrderBase
+from src.store.tasks import complete_order
 
 router = APIRouter(prefix="/orders", tags=["store"])
 
@@ -22,7 +23,7 @@ def get_all_orders() -> JSONResponse:
 
 
 @router.post("/new")
-def create_order(payload: ProductOrderBase) -> Order:
+def create_order(payload: ProductOrderBase, bacground_tasks: BackgroundTasks) -> Order:
     """Create an order."""
     response = requests.get(
         f"http://localhost:8000/products/{payload.product_id}",
@@ -40,7 +41,10 @@ def create_order(payload: ProductOrderBase) -> Order:
         status=OrderStatus.PENDING.value,
     )
 
-    return order.save()
+    order.save()
+    bacground_tasks.add_task(complete_order, order)
+
+    return order
 
 
 @router.get("/{pk}")
