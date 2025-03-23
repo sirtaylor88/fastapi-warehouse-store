@@ -1,4 +1,4 @@
-"""Warehouse models."""
+"""Warehouse schema."""
 
 from pydantic import BaseModel
 

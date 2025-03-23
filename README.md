@@ -24,6 +24,8 @@ poetry add fastapi "uvicorn[standard]"
 
 ## Run server
 
+### Warehouse microservice
+
 ```bash
-uvicorn fastapi_warehouse_store.main:app --reload
+uvicorn src.warehouse.main:app --reload
 ```

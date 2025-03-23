@@ -1,10 +1,10 @@
-"""Main app."""
+"""Warehouse Microservice."""
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, Response
 
-from fastapi_warehouse_store.routers import product
+from src.warehouse.routers import product
 
 app = FastAPI()
 app.add_middleware(

@@ -5,24 +5,24 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from redis_om.model import NotFoundError
 
-from fastapi_warehouse_store.db import Product
-from fastapi_warehouse_store.warehouse import ProductBase
+from src.warehouse.models import Product
+from src.warehouse.schema import ProductBase
 
 router = APIRouter(prefix="/products", tags=["warehouse"])
 
 
 @router.get("/")
 def get_all_products() -> JSONResponse:
-    """Get all product."""
+    """Get all products."""
 
     data = [Product.get(pk) for pk in Product.all_pks()]
     return JSONResponse(content=jsonable_encoder(data))
 
 
 @router.post("/new")
-def create_product(request: ProductBase) -> Product:
+def create_product(payload: ProductBase) -> Product:
     """Create a product."""
-    product = Product(**request.model_dump())
+    product = Product(**payload.model_dump())
     return product.save()
 
 
