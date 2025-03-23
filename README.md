@@ -28,4 +28,5 @@ poetry add fastapi "uvicorn[standard]"
 
 ```bash
 uvicorn src.warehouse.main:app --reload
+uvicorn src.store.main:app --reload --port 8001
 ```

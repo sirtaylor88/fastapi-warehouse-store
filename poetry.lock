@@ -2559,6 +2559,21 @@ cryptography = ">=35.0.0"
 types-pyOpenSSL = "*"
 
 [[package]]
+name = "types-requests"
+version = "2.32.0.20250306"
+description = "Typing stubs for requests"
+optional = false
+python-versions = ">=3.9"
+groups = ["dev"]
+files = [
+    {file = "types_requests-2.32.0.20250306-py3-none-any.whl", hash = "sha256:25f2cbb5c8710b2022f8bbee7b2b66f319ef14aeea2f35d80f18c9dbf3b60a0b"},
+    {file = "types_requests-2.32.0.20250306.tar.gz", hash = "sha256:0962352694ec5b2f95fda877ee60a159abdf84a0fc6fdace599f20acb41a03d1"},
+]
+
+[package.dependencies]
+urllib3 = ">=2"
+
+[[package]]
 name = "types-setuptools"
 version = "76.0.0.20250313"
 description = "Typing stubs for setuptools"
@@ -2679,7 +2694,7 @@ version = "2.3.0"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 optional = false
 python-versions = ">=3.9"
-groups = ["main"]
+groups = ["main", "dev"]
 files = [
     {file = "urllib3-2.3.0-py3-none-any.whl", hash = "sha256:1cee9ad369867bfdbbb48b7dd50374c0967a0bb7710050facf0dd6911440e3df"},
     {file = "urllib3-2.3.0.tar.gz", hash = "sha256:f8c5449b3cf0861679ce7e0503c7b44b5ec981bec0d1d3795a07f1ba96f0204d"},
@@ -3157,4 +3172,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12, <4"
-content-hash = "a203fb69d344daa4e7cc7185dcfc32105a50b6b8a8ba363cf37dd91aeb9a6aed"
+content-hash = "26df958414168b022673ba7936c81a4d44e977f100af393a8f4c986f6c2e40ad"
