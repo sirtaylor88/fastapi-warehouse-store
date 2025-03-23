@@ -2,9 +2,9 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from redis_om import get_redis_connection
+from fastapi.responses import RedirectResponse, Response
 
-from fastapi_warehouse_store.config import get_settings
+from fastapi_warehouse_store.routers import product
 
 app = FastAPI()
 app.add_middleware(
@@ -14,12 +14,10 @@ app.add_middleware(
     allow_headers=[""],
 )
 
+app.include_router(product.router)
 
-settings = get_settings()
 
-redis = get_redis_connection(
-    host=settings.redis_endpoint,
-    port=settings.redis_port,
-    password=settings.redis_password,
-    decode_responses=True,
-)
+@app.get("/", include_in_schema=False)
+def index() -> Response:
+    """Redirect to swagger and hide the endpoint from swagger."""
+    return RedirectResponse("/docs")
